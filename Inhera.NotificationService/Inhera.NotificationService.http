@@ -1,0 +1,6 @@
+@Inhera.NotificationService_HostAddress = http://localhost:5071
+
+GET {{Inhera.NotificationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

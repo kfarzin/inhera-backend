@@ -1,0 +1,6 @@
+@Inhera.Infrastructure_HostAddress = http://localhost:5029
+
+GET {{Inhera.Infrastructure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

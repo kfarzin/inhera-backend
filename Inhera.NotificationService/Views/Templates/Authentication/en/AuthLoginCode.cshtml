@@ -1,0 +1,41 @@
+﻿@model Inhera.NotificationService.Models.Vms.Authentication.AuthLoginCodeVm
+@{
+    Layout = "~/Views/Layouts/Default.cshtml";
+    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
+           style="background-color:#ffffff;border-radius:8px;padding:2rem">
+        <tbody>
+            <tr>
+                <td>
+                    <h1 style="text-align:center;margin:0 0 8px 0;font-family:Helvetica, Arial, sans-serif">
+                        Your security code
+                    </h1>
+
+                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                           style="background:rgba(0,0,0,.05);border-radius:4px;margin:16px auto 14px;vertical-align:middle;border:2px solid #2f9bfe">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p style="font-size:32px;line-height:40px;margin:0 auto;color:#2f9bfe;display:inline-block;
+                                   font-family:Helvetica, Arial, sans-serif;font-weight:700;letter-spacing:6px;
+                                   padding:8px 0;width:100%;text-align:center">
+                                        @Model?.Code
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="text-align:center;font-size:14px;line-height:24px;margin:16px 0;font-family:Helvetica, Arial, sans-serif">
+                        Please use this security code to sign in to your <strong>Inhera</strong> account within the
+                        <strong>next 15 minutes</strong>.
+                    </p>
+
+                    <p style="text-align:center;font-size:14px;line-height:24px;margin:16px 0;font-family:Helvetica, Arial, sans-serif">
+                        If you did not request this code, please ignore this email and contact our support team.
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+}

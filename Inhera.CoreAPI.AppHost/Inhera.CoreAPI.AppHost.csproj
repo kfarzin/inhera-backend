@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.1" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>b307fce5-3be6-43f5-8ffe-7066b981770c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inhera.AdminAPI\Inhera.AdminAPI.csproj" />
+    <ProjectReference Include="..\Inhera.Authentication\Inhera.Authentication.csproj" />
+    <ProjectReference Include="..\Inhera.CoreAPI.ServiceDefaults\Inhera.CoreAPI.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Inhera.CoreAPI\Inhera.CoreAPI.csproj" />
+    <ProjectReference Include="..\Inhera.Infrastructure\Inhera.Infrastructure.csproj" />
+    <ProjectReference Include="..\Inhera.Jobs\Inhera.Jobs.csproj" />
+    <ProjectReference Include="..\Inhera.NotificationService\Inhera.NotificationService.csproj" />
+  </ItemGroup>
+
+</Project>

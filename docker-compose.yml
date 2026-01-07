@@ -1,0 +1,88 @@
+version: '3.9'
+
+services:
+  inhera_rabbitmq:
+    container_name: inhera_rabbitmq_container
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  inhera_core_api_postgres:
+    container_name: inhera_core_api_postgres_container
+    image: postgres:14-alpine
+    ports:
+      - 6434:5432
+    volumes:
+      - ~/apps/postgres_inhera:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=inhera4242
+      - POSTGRES_USER=user
+      - POSTGRES_DB=inhera_db
+  inhera_notification_service_postgres:
+    container_name: inhera_notification_service_postgres_container
+    image: postgres:14-alpine
+    ports:
+      - 6435:5432
+    volumes:
+      - ~/apps/postgres_notification_service_inhera:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=inhera4242
+      - POSTGRES_USER=user
+      - POSTGRES_DB=inhera_db
+  
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+    # networks:
+    #   - network_default
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - /var/log:/var/log
+      - ./promtail-config.yaml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    # networks:
+    #   - network_default
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        apiVersion: 1
+        datasources:
+        - name: Loki
+          type: loki
+          access: proxy 
+          orgId: 1
+          url: http://loki:3100
+          basicAuth: false
+          isDefault: true
+          version: 1
+          editable: false
+        EOF
+        /run.sh
+    image: grafana/grafana:latest
+    ports:
+      - "3500:3000"
+    # networks:
+    #   - network_default

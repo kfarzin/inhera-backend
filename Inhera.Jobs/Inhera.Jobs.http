@@ -1,0 +1,6 @@
+@Inhera.Jobs_HostAddress = http://localhost:5073
+
+GET {{Inhera.Jobs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
